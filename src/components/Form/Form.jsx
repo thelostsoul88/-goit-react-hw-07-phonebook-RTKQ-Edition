@@ -1,6 +1,8 @@
 import { nanoid } from '@reduxjs/toolkit';
-import { useAddContactsMutation } from 'redux/contactsApi';
+import { toast } from 'react-hot-toast';
+import { useAddContactsMutation, useGetContactsQuery } from 'redux/contactsApi';
 const Form = () => {
+  const { data: contacts = [] } = useGetContactsQuery();
   const [addContacts] = useAddContactsMutation();
   const nameId = nanoid();
   const numberId = nanoid();
@@ -8,8 +10,9 @@ const Form = () => {
   const handleSubmit = e => {
     e.preventDefault();
     const { name, number } = e.currentTarget.elements;
-    const contacts = { name: name.value, number: number.value };
-    addContacts(contacts);
+    contacts.some(contact => contact.number === number.value)
+      ? toast.error(`${number.value} - already in contact`)
+      : addContacts({ name: name.value, number: number.value });
     e.currentTarget.reset();
   };
   return (
