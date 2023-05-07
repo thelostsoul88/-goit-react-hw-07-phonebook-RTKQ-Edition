@@ -1,4 +1,3 @@
-import { toast } from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 import {
   useDeleteContactsMutation,

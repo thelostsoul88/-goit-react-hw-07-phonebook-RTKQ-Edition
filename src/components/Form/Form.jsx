@@ -1,15 +1,6 @@
-import { useState } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
 import { useAddContactsMutation } from 'redux/contactsApi';
-import { toast } from 'react-hot-toast';
-const initialState = {
-  name: '',
-  number: '',
-};
 const Form = () => {
-  // const [name, setName] = useState('');
-  // const [number, setNumber] = useState('');
-  const [state, setState] = useState(initialState);
   const [addContacts] = useAddContactsMutation();
   const nameId = nanoid();
   const numberId = nanoid();

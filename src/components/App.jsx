@@ -6,7 +6,7 @@ import Loader from './Loader/Loader';
 import { useGetContactsQuery } from 'redux/contactsApi';
 
 const App = () => {
-  const { isError, isLoading } = useGetContactsQuery();
+  const { data: contacts = [], isError, isLoading } = useGetContactsQuery();
   return (
     <>
       {!isError && (
@@ -15,17 +15,17 @@ const App = () => {
           <Form />
         </>
       )}
-      {!isError && (
+      {!isError && !contacts.length && (
         <h2 className="text-2xl font-mono font-bold">
           No contacts in phonebook!
         </h2>
       )}
-      {/* {items.length > 0 && ( */}
-      <>
-        <h2 className="text-2xl font-mono font-bold">Contacts</h2>
-        <Filter />
-      </>
-      {/* )} */}
+      {contacts.length > 0 && (
+        <>
+          <h2 className="text-2xl font-mono font-bold">Contacts</h2>
+          <Filter />
+        </>
+      )}
       {isLoading && !isError && <Loader />}
       <ContactList />
       <Toaster />
